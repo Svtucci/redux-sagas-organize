@@ -1,4 +1,4 @@
-import { put, takelatest } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 // Make a GET request and pass the data to redux
@@ -37,4 +37,4 @@ function* elementSaga() {
     // More sagas go here
 }
 
-export default 
+export default elementSaga; 

@@ -7,13 +7,11 @@ import { Provider } from 'react-redux';
 // Step 2: import createSagaMiddleware
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-// Step 8: Import axios, takeEvery and put
-import axios from 'axios';
-// put is dispatch (they do the same thing)
-import { takeEvery, put } from 'redux-saga/effects';
+
 
 // importing reducer from file we moved it to
 import elementList from './redux/reducers/element.reducer.js';
+import rootSaga from './redux/sagas/element.saga.js'; 
 
 
 // Step 4: create saga middleware
