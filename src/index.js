@@ -12,49 +12,9 @@ import axios from 'axios';
 // put is dispatch (they do the same thing)
 import { takeEvery, put } from 'redux-saga/effects';
 
-const elementList = (state = [], action) => {
-    switch (action.type) {
-        case 'SET_ELEMENTS':
-            return action.payload;
-        default:
-            return state;
-    }
-}; 
-// Make a GET request and pass the data to redux
-function* fetchElements() {
-    try {
-        // Wait for a server response...
-        const elements = yield axios.get('/api/element');
-        // After we get a response, dispatch an action
-        yield put({ type: 'SET_ELEMENTS', payload: elements.data });
-    } catch (error) {
-        console.log(`error in fetchElements: ${error}`);
-        alert('Something went wrong.');
-    }
-}
+// importing reducer from file we moved it to
+import elementList from './redux/reducers/element.reducer.js';
 
-function* postElement(action) {
-    try {
-        yield axios.post('/api/element', action.payload);
-        // Call the GET
-        yield put({ type: 'FETCH_ELEMENTS' });
-        // We can pass functions through actions
-        action.setNewElement('');
-    } catch (error) {
-        console.log(`error in postElement`);
-        alert('Something went wrong');
-    }
-}
-
-// Step 3: Create a root saga
-// this is the saga that will watch for actions
-function* rootSaga() {
-    //! 'FETCH_ELEMENTS' is our action type.
-    //! DO NOT USE the same action as the reducer
-    yield takeEvery('FETCH_ELEMENTS', fetchElements);
-    yield takeEvery('ADD_ELEMENT', postElement);
-    // More sagas go here
-}
 
 // Step 4: create saga middleware
 const sagaMiddleware = createSagaMiddleware();
